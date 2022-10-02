@@ -4,14 +4,14 @@ see example.c to learn how it (in 2D) works
 
 the square above was made with this
 ```c
-  map2 map;
-  int a;int b;
-  for (a=1;a < 20;a++) {
-    printf("\n");
-    for (b=1;b < 30;b++) {
-      printf("%i",map2_get(map,a,b));
-    }
-  }```
+map2 map;
+int a;int b;
+for (a=1;a < 20;a++) {
+  printf("\n");
+  for (b=1;b < 30;b++) {
+    printf("%i",map2_get(map,a,b));
+  }
+}```
 # map2
 
 a 2D graph 50*50 large
