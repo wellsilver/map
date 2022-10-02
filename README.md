@@ -5,7 +5,7 @@ see example.c to learn how it (in 2D) works
 <small>above, a square</small>
 
 ## why tf
-1 fun to do
-2 standardization
-3 portable
-4 no-std
+1. fun to do
+2. standardization
+3. portable
+4. no-std
