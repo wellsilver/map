@@ -11,7 +11,8 @@ for (a=1;a < 20;a++) {
   for (b=1;b < 30;b++) {
     printf("%i",map2_get(map,a,b));
   }
-}```
+}
+```
 # map2
 
 a 2D graph 50*50 large
