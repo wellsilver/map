@@ -26,7 +26,7 @@ map->x[x].y[y] = data;
 
 # map3
 
-the same functions as map2, except really inefficient and confusing
+the same functions as map2, except really inefficient and confusing (just dont use it)
 
 # why tf
 1. fun to do
