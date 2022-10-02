@@ -64,7 +64,7 @@ int map3_get(map3 map,int x,int y,int z) {
 }
 // conveniently (and while looking cleaner) set the key at y_x_z
 void map3_set(map3 *map,int x,int y,int z,int data) {
-  map.y[x].x[y].z[z] = data;
+  map->y[x].x[y].z[z] = data;
 }
 // conveniently get a map2 from map3 for the graph on y coordinate
 map2 map3_into_map2(map3 map,int y) {
