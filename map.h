@@ -1,10 +1,4 @@
-// map.h
-// _m2_data is a pointer to a single key in a graph, used to make map2 iterable
-struct _m2_data {
-  int x;
-  int y;
-  int data;
-};
+//
 // _align is a single dimension, used by map.h
 struct _align {
   int y[50];
@@ -31,8 +25,8 @@ int map2_get(map2 map,int x,int y) {
   return map.x[x].y[y];
 }
 // conveniently (and while looking cleaner) set the key at x_y to i
-void map2_set(map2 map,int x,int y,int data) {
-  map.x[x].y[y] = data;
+void map2_set(map2 *map,int x,int y,int data) {
+  map->x[x].y[y] = data;
 }
 
 /// map3 (3d graph)
@@ -69,7 +63,7 @@ int map3_get(map3 map,int x,int y,int z) {
   return map.y[x].x[y].z[z];
 }
 // conveniently (and while looking cleaner) set the key at y_x_z
-void map3_set(map3 map,int x,int y,int z,int data) {
+void map3_set(map3 *map,int x,int y,int z,int data) {
   map.y[x].x[y].z[z] = data;
 }
 // conveniently get a map2 from map3 for the graph on y coordinate
