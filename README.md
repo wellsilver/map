@@ -4,7 +4,26 @@ see example.c to learn how it (in 2D) works
 
 <small>above, a square</small>
 
-## why tf
+# map2
+
+a 2D graph 50*50 large
+
+## methods
+
+### map2 map2_new(int default_)
+make a new 50*50 2D graph with this default integer
+
+### int map2_get(map2 map,int x,int y)
+get the integer at x_y convenience function
+```c
+return map.x[x].y[y];
+```
+### void map2_set(map2 *map,int x,int y,int data) {
+change x_y to int data convenience function
+```c
+map->x[x].y[y] = data;
+```
+# why tf
 1. fun to do
 2. standardization
 3. portable
