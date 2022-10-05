@@ -1,41 +1,32 @@
-see example.c to learn how it (in 2D) works
+see example.c to learn how it works
 
-![image](https://user-images.githubusercontent.com/67511181/193435358-765ebae9-52b0-4d0a-866f-6f5585846fe2.png)
+![image](https://user-images.githubusercontent.com/67511181/194120597-4979e220-d42b-49c0-91f4-a0052775d499.png)
 
-the square above was made with this
-```c
-map2 map;
-int a;int b;
-for (a=1;a < 20;a++) {
-  printf("\n");
-  for (b=1;b < 30;b++) {
-    printf("%i",map2_get(map,a,b));
-  }
-}
-```
+<small>the image is a 20*30 table</small>
 # map2
 
-a 2D graph 50*50 large
+a 2D graph thats size can be changed
 
 ## methods
 
-### map2 map2_new(int default_)
-make a new 50*50 2D graph with this default integer
+### map map_new(int size)
+make a new map with size x_y for example if size was 50 it would be 50*50
 
-### int map2_get(map2 map,int x,int y)
-get the integer at x_y convenience function
+### int map_get(map2 map,int x,int y)
+get the key at x_y in the map
 ```c
-return map.x[x].y[y];
+return map->x[x].y[y];
 ```
-### void map2_set(map2 *map,int x,int y,int data) {
-change x_y to int data convenience function
+### void map_set(map2 *map,int x,int y,int data) {
+set key at x_y map to data
 ```c
 map->x[x].y[y] = data;
 ```
+### int *map_find(map *map,int data)
+find the x_y coordinates of first occurence of data and return its coordinates in integer array
 
-# map3
-
-the same functions as map2, except really inefficient and confusing (just dont use it)
+## 3D
+because of how dumb 3D is itll only be added if someone else adds it (via pr)
 
 # why tf
 1. fun to do

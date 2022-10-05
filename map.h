@@ -1,79 +1,45 @@
-//
-// _align is a single dimension, used by map.h
-struct _align {
-  int y[50];
+void *malloc(unsigned long int size); // custom dec so no std
+// 1 dimension
+struct data {
+  int *y;
 };
-// a 2D graph, dont use "struct map2" just do "map2"
-struct map2 {
-  struct _align x[50];
+// dynamicly sized 2D graph
+struct map {
+  int size;
+  struct data *x;
 };
-// a 2D graph, used by map.h
-typedef struct map2 map2;
-// conveniently make a map2 with default integer
-map2 map2_new(int default_) {
-  map2 i;
-  int a;int b;
-  for (a=1;a < 50;a++) {
-    for (b=1;b < 50;b++) {
-      i.x[a].y[b] = default_;
-    }
+typedef struct map map;
+// make a new map with size x_y
+map map_new(int size)  {
+  map i;
+  i.size=size;
+  i.x = (struct data *) malloc(sizeof(struct data)*size);
+  int a;
+  for (a=1;a < size;a++) {
+    i.x[a].y = (int *) malloc(sizeof(int)*size);
   }
   return i;
 }
-// conveniently (and while looking cleaner) get the key at x_y
-int map2_get(map2 map,int x,int y) {
-  return map.x[x].y[y];
+// get key at x_y map
+int map_get(map *map,int x,int y) {
+  return map->x[x].y[y];
 }
-// conveniently (and while looking cleaner) set the key at x_y to i
-void map2_set(map2 *map,int x,int y,int data) {
+// set key at x_y map to data
+void map_set(map *map,int x,int y,int data) {
   map->x[x].y[y] = data;
 }
-
-/// map3 (3d graph)
-/* we allready have 2 dimensions, we can just put the 2 dimension graph in an array
-and follow by z
-
-x,y,z is normal but y,x,z is alot more readable?
+/* find the x_y coordinates of first occurence of data and return its coordinates in array
 */
-// xyz
-struct _map3_z {int z[50];};
-struct _map3_x {struct _map3_z x[50];};
-// 3D graph like this (y,x,z)
-struct map3 {
-  struct _map3_x y[50];
-};
-// 3D graph like this (y,x,z) imagine y as a bunch of 2D graphs
-typedef struct map3 map3;
-// funcs
-// conveniently make a map3 with default integer
-map3 map3_new(int default_) {
-  map3 i;
-  int a;int b;int c;
-  for (a=1;a < 50;a++) {
-    for (b=1;b < 50;b++) {
-      for (c=1;c < 50;c++) {
-        i.y[a].x[b].z[c] = default_;
+int *map_find(map *map,int data) {
+  int a;int b;
+  for (a=1;a < map->size;a++) {
+    for (b=1;b < map->size;b++) {
+      if (map->x[a].y[b]==data) {
+        int *array = (int *) malloc(sizeof(int)*2);
+        array[0] = a;
+        array[1] = b;
+        return array;
       }
     }
   }
-  return i;
-}
-// conveniently (and while looking cleaner) get the key at y_x_z
-int map3_get(map3 map,int x,int y,int z) {
-  return map.y[x].x[y].z[z];
-}
-// conveniently (and while looking cleaner) set the key at y_x_z
-void map3_set(map3 *map,int x,int y,int z,int data) {
-  map->y[x].x[y].z[z] = data;
-}
-// conveniently get a map2 from map3 for the graph on y coordinate
-map2 map3_into_map2(map3 map,int y) {
-  map2 i;
-  int a;int b;
-  for (a=1;a < 50;a++) {
-    for (b=1;b < 50;b++) {
-      i.x[a].y[b]=map.y[y].x[a].z[b];
-    }
-  }
-  return i;
 }
