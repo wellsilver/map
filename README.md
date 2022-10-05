@@ -1,6 +1,6 @@
 see example.c to learn how it works
 
-![image](https://user-images.githubusercontent.com/67511181/194119664-08f08752-6a6a-40ac-9280-30a61242ec70.png)
+![image](https://user-images.githubusercontent.com/67511181/194120597-4979e220-d42b-49c0-91f4-a0052775d499.png)
 
 <small>the image is a 20*30 table</small>
 # map2
