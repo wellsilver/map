@@ -32,4 +32,4 @@ because of how dumb 3D is itll only be added if someone else adds it (via pr)
 1. fun to do
 2. standardization
 3. portable
-4. no-std
+4. should work on all platforms with malloc()
