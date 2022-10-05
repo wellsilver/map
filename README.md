@@ -27,9 +27,7 @@ find the x_y coordinates of first occurence of data and return its coordinates i
 
 ## 3D
 because of how dumb 3D is itll only be added if someone else adds it (via pr)
-
-## what if whatever im doing makes me not have malloc?
-use mapv1 
+ 
 # why tf
 1. fun to do
 2. standardization
