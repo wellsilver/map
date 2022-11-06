@@ -1,43 +1,18 @@
-#include "map.h"
+// this program shows off all map.h functions
 #include <stdio.h>
-int main() {
-  // as an example for 2D, we will be making a square inside a 2D graph then printing it
-  map map = map_new(50); // to make the square more visible we will make everything in the table 8
-  int radius = 10; // how big we want our square to be
-  int start_x = 5; // where top left corner of square is
-  int start_y = 5; // where top left corner of square is
+#define MAP_FULL_INT // real ints instead of uint8
+#include "map.h"
 
-  /* how will we draw the square?
-  I would like to start drawing the square by moving to the right radius times
-  then moving down on the y radius times making the first half of the square
-  then do the same but thing but inverted
-  */
-  int a; // for loop
-  // move to the right on x axis
-  for (a=1;a < radius;a++) {
-    map_set(&map,start_x+a,start_y,1);
+int main(void) {
+  map_graph _map = map_new(5); // 5,5 large graph with ints in it
+  map_graph *map = &_map;
+  map_set(1,4,1,map); // place 1 at 1,4
+  struct _map_vec2 a = map_find(1,map); // get the coordinates of first occurence of 1
+  if (a.x<0) {
+    printf("No occurence of 1");
   }
-  // move down on the y axis
-  for (a=1;a < radius;a++) {
-    map_set(&map,start_x+radius,start_y+a,1);
+  else {
+    printf("%i\n",map_get(a.x,a.y,map));// use the coordinates to print 1
   }
-  // now do the same thing but taking into account what we allready have
-  
-  // move up on the y axis
-  for (a=1;a < radius;a++) {
-    map_set(&map,start_x+radius-a,start_y+radius,1);
-  }
-  // move to the left on the x axis
-  for (a=1;a < radius;a++) {
-    map_set(&map,start_x,start_y+radius-a,1);
-  }
-  // and here we render the square, the graph is actually 50*50 but we only used a bit of it
-  // you need a terminal thats more than 20*30 characters in size to see this correctly
-  int b;
-  for (a=1;a < 20;a++) {
-    printf("\n");
-    for (b=1;b < 30;b++) {
-      printf("%i",map_get(&map,a,b));
-    }
-  }
+  return 0;
 }
