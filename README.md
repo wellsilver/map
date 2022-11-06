@@ -1,35 +1,50 @@
-see example.c to learn how it works
+# map
+a header to help you with graphs
 
-![image](https://user-images.githubusercontent.com/67511181/194120597-4979e220-d42b-49c0-91f4-a0052775d499.png)
+## docs
+### MAP_FULL_INT
+``#define MAP_FULL_INT``
+data in the graph is stored in char's (or 8 bit ints) defining map_full_int makes it a normal integer
 
-<small>the image is a 20*30 table</small>
-# map2
+### _map_vec2
+``struct _map_vec2``
 
-a 2D graph thats size can be changed
+A struct with 2 ints (``_map_vec2.x`` and ``_map_vec2.y``)
 
-## methods
+returned by map_find as a workaround from pointers
 
-### map map_new(int size)
-make a new map with size x_y for example if size was 50 it would be 50*50
+> twod_to_oned()
 
-### int map_get(map2 map,int x,int y)
-get the key at x_y in the map
-```c
-return map->x[x].y[y];
-```
-### void map_set(map2 *map,int x,int y,int data) {
-set key at x_y map to data
-```c
-map->x[x].y[y] = data;
-```
-### int *map_find(map *map,int data)
-find the x_y coordinates of first occurence of data and return its coordinates in integer array
+``int twod_to_oned(unsigned int x,unsigned int y)``
 
-## 3D
-because of how dumb 3D is itll only be added if someone else adds it (via pr)
- 
+returns a oned position of x,y
+
+> map_new()
+
+``map_graph map_new(unsigned int size)``
+
+makes a new initialized map_graph struct thats size large
+
+> map_set()
+
+``void map_set(unsigned int x,unsigned int y,int set_to,map_graph *map)``
+
+set x_y in map to the set_to int
+
+> map_get()
+
+``int map_get(unsigned int x,unsigned int y,map_graph *map)``
+
+get x_y in map and return
+
+> map_find()
+
+``struct _map_vec2 map_find(int what_to_find,map_graph *map)``
+
+return a ``_map_vec2`` with the x and y coordinate of the first occurence of what_to_find
+
 # why tf
-1. fun to do
-2. standardization
-3. portable
-4. should work on all platforms with malloc()
+1. fun
+2. fast
+3. simple
+4. despite being dynamic only c99 compiler required
