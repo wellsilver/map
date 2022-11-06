@@ -3,10 +3,8 @@ typedef struct _map_vec2 {
   int x;
   int y;
 } _map_vec2;
-typedef enum map_style {MAP_STYLE_INT,MAP_STYLE_CHR} map_style;
 // map is just 2D array
 typedef struct map_graph {
-  map_style style;
   int size;
 #ifdef MAP_FULL_INT
   int *i;
@@ -25,11 +23,10 @@ int twod_to_oned(unsigned int x,unsigned int y) {
     return x+y;
   }
 }
-// make a new 2D graph with datatype map_style \n as large as x,y \n if init is > 0 all keys are set to 0
-map_graph map_new(unsigned int size,map_style style) {
+// make a new initialized 2D graph thats size*size large
+map_graph map_new(unsigned int size) {
   map_graph map;
   map.size=size;
-  map.style=style;
 #ifdef MAP_FULL_INT
   int i[size];
 #endif
@@ -49,13 +46,11 @@ map_graph map_new(unsigned int size,map_style style) {
 }
 // set x_y in map to set_to
 void map_set(unsigned int x,unsigned int y,int set_to,map_graph *map) {
-  int pos=twod_to_oned(x,y);
-  map->i[pos] = set_to;
+  map->i[twod_to_oned(x,y)] = set_to;
 }
 // return x_y in map
 int map_get(unsigned int x,unsigned int y,map_graph *map) {
-  int pos=twod_to_oned(x,y);
-  return map->i[pos];
+  return map->i[twod_to_oned(x,y)];
 }
 // find first instance of int (or char) and return as _map_vec2 of coordinates
 struct _map_vec2 map_find(int what_to_find,map_graph *map) {
