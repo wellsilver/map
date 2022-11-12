@@ -6,6 +6,19 @@ see dynamic.c and static.c to see how it works
 3. simple
 4. doesnt segfault like v2 and v1
 
+## build
+
+to build with a normal c file (with STD) include the header like this:
+
+``#include "map.h"``
+
+to build in static mode try this
+
+```
+#define MAP_STATIC
+#define MAP_SIZE 5
+#include "map.h"
+```
 ## docs
 ``#DEFINE MAP_STATIC``
 
