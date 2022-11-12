@@ -1,35 +1,49 @@
-see example.c to learn how it works
+see dynamic.c and static.c to see how it works
 
-![image](https://user-images.githubusercontent.com/67511181/194120597-4979e220-d42b-49c0-91f4-a0052775d499.png)
+## why?
+1. static and dynamic modes if you want std or not
+2. fast
+3. simple
+4. doesnt segfault like v2 and v1
 
-<small>the image is a 20*30 table</small>
-# map2
+## build
 
-a 2D graph thats size can be changed
+to build with a normal c file (with STD) include the header like this:
 
-## methods
+``#include "map.h"``
 
-### map map_new(int size)
-make a new map with size x_y for example if size was 50 it would be 50*50
+to build in static mode try this
 
-### int map_get(map2 map,int x,int y)
-get the key at x_y in the map
-```c
-return map->x[x].y[y];
 ```
-### void map_set(map2 *map,int x,int y,int data) {
-set key at x_y map to data
-```c
-map->x[x].y[y] = data;
+#define MAP_STATIC
+#define MAP_SIZE 5
+#include "map.h"
 ```
-### int *map_find(map *map,int data)
-find the x_y coordinates of first occurence of data and return its coordinates in integer array
+## docs
+``#DEFINE MAP_STATIC``
 
-## 3D
-because of how dumb 3D is itll only be added if someone else adds it (via pr)
- 
-# why tf
-1. fun to do
-2. standardization
-3. portable
-4. should work on all platforms with malloc()
+Changes into a zero STD c99 only area
+
+``#DEFINE MAP_SIZE``
+
+Only for when the map is static, this changes the maps size
+
+``map2_graph map2_new(int x,int y,int deflt)``
+
+note: when MAP_STATIC is defined both args x and y do not exist
+
+Create a new 2D graph thats x,y large and all keys are initialized as deflt
+
+``int map2_get(int x,int y,map2_graph *map)``
+
+Get the integer at x y
+
+``void map2_set(int x,int y,int set_to,map2_graph *map)``
+
+set the integer at x y to set_to
+
+``struct map2_find_ret map2_find(int to_find,map2_graph *map)``
+
+finds the first occurence of to_find in the graph and returns a struct with a x and y of its coordinates
+
+x and y are -5 if to_find does not exist

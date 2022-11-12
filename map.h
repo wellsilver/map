@@ -1,45 +1,106 @@
-void *malloc(unsigned long int size); // custom dec so no std
-// 1 dimension
-struct data {
-  int *y;
-};
-// dynamicly sized 2D graph
-struct map {
-  int size;
-  struct data *x;
-};
-typedef struct map map;
-// make a new map with size x_y
-map map_new(int size)  {
-  map i;
-  i.size=size;
-  i.x = (struct data *) malloc(sizeof(struct data)*size);
-  int a;
-  for (a=1;a < size;a++) {
-    i.x[a].y = (int *) malloc(sizeof(int)*size);
+#ifdef MAP_STATIC // static map sizes (no malloc)
+typedef struct map2_graph {
+  struct ABCDEFGHIJKLMNOPQRSTUVWXYZ_NOWIKNOWMYABCWONTYOULATERSINGWITHME {
+    int x;
+    int y;
+  }size;
+  int x[MAP_SIZE][MAP_SIZE];
+} map2_graph;
+map2_graph map2_new(int deflt) {
+  map2_graph i;
+  i.size.x = MAP_SIZE;
+  i.size.y = MAP_SIZE;
+  int loop;
+  int loop2;
+  for (loop=0;loop<MAP_SIZE;loop++) {
+    for (loop2=0;loop2<MAP_SIZE;loop2++) {
+      i.x[loop][loop2]=deflt;
+    }
   }
   return i;
 }
-// get key at x_y map
-int map_get(map *map,int x,int y) {
-  return map->x[x].y[y];
+int map2_get(int x,int y,map2_graph *map) {
+  return map->x[x][y];
 }
-// set key at x_y map to data
-void map_set(map *map,int x,int y,int data) {
-  map->x[x].y[y] = data;
+void map2_set(int x,int y,int set_to,map2_graph *map) {
+  map->x[x][y] = set_to;
 }
-/* find the x_y coordinates of first occurence of data and return its coordinates in array
-*/
-int *map_find(map *map,int data) {
-  int a;int b;
-  for (a=1;a < map->size;a++) {
-    for (b=1;b < map->size;b++) {
-      if (map->x[a].y[b]==data) {
-        int *array = (int *) malloc(sizeof(int)*2);
-        array[0] = a;
-        array[1] = b;
-        return array;
+struct map2_find_ret {
+  int x;
+  int y;
+};
+struct map2_find_ret map2_find(int to_find,map2_graph *map) {
+  int loop;
+  int loop2;
+  struct map2_find_ret e;
+  for (loop=0;loop<map->size.x;loop++) {
+    for (loop2=0;loop2<map->size.y;loop2++) {
+      if (map->x[loop][loop2]==to_find) {
+        e.x = loop;
+        e.y = loop2;
+        return e;
       }
     }
   }
+  e.x=-5;
+  e.y=-5;
+  return e;
 }
+#else // dynamic map sizes (malloc)
+#include <stdlib.h>
+typedef struct map2_graph {
+  struct ABCDEFGHIJKLMNOPQRSTUVWXYZ_NOWIKNOWMYABCWONTYOULATERSINGWITHME {
+    int x;
+    int y;
+  }size;
+  int **x;
+} map2_graph;
+// make a new graph thats x*y large and all keys are set to deflt
+map2_graph map2_new(int x,int y,int deflt) {
+  map2_graph i;
+  i.size.x = x;
+  i.size.y = y;
+  int loop;
+  i.x = (int **) malloc(sizeof(int **)*x);
+  for (loop=0;loop<x;loop++) {
+    i.x[loop] = (int *) malloc(sizeof(int *)*y);
+  }
+  int loop2;
+  for (loop=0;loop<x;loop++) {
+    for (loop2=0;loop2<y;loop2++) {
+      i.x[loop][loop2] = deflt;
+    }
+  }
+  return i;
+}
+// get and return x_y
+int map2_get(int x,int y,map2_graph *map) {
+  return map->x[x][y];
+}
+// set x_y to set_to
+void map2_set(int x,int y,int set_to,map2_graph *map) {
+  map->x[x][y] = set_to;
+}
+// finds first occurence of to_find and returns an array of 2 integers of its location (int i[2] = {x,y})
+struct map2_find_ret {
+  int x;
+  int y;
+};
+struct map2_find_ret map2_find(int to_find,map2_graph *map) {
+  int loop;
+  int loop2;
+  struct map2_find_ret e;
+  for (loop=0;loop<map->size.x;loop++) {
+    for (loop2=0;loop2<map->size.y;loop2++) {
+      if (map->x[loop][loop2]==to_find) {
+        e.x=loop;
+        e.y=loop;
+        return e;
+      }
+    }
+  }
+  e.x=-5;
+  e.y=-5;
+  return e;
+}
+#endif
