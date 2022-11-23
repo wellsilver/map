@@ -20,6 +20,12 @@ to build in static mode try this
 #include "map.h"
 ```
 ## docs
+``#DEFINE MAP_FUNC_PNTRS``
+
+Creates function pointers in map2_graph, allows for map2_get to be used like ``map2_graph.get()`` map2_set like ``map2_graph.set()`` and map2_find to be used like ``map2_graph.find()``
+
+See func_pntrs.c for more info
+
 ``#DEFINE MAP_STATIC``
 
 Changes into a zero STD c99 only area
