@@ -40,9 +40,11 @@ struct map2_find_ret map2_find(int to_find,map2_graph *map) {
 }
 map2_graph map2_new(int deflt) {
   map2_graph i;
+#ifdef MAP_FUNC_PNTRS
   i.get = map2_get;
   i.set = map2_set;
   i.find = map2_find;
+#endif
   i.size.x = MAP_SIZE;
   i.size.y = MAP_SIZE;
   int loop;
@@ -101,9 +103,11 @@ struct map2_find_ret map2_find(int to_find,map2_graph *map) {
 // make a new graph thats x*y large and all keys are set to deflt
 map2_graph map2_new(int x,int y,int deflt) {
   map2_graph i;
+#ifdef MAP_FUNC_PNTRS
   i.get = map2_get;
   i.set = map2_set;
   i.find = map2_find;
+#endif
   i.size.x = x;
   i.size.y = y;
   int loop;
